@@ -1,3 +1,6 @@
+> Further Information.
+You can view advanced information about ExplorationPy on its wiki, find it here:
+
 > How to install a mission.
 Download a mission, and move it into the "Missions" folder.
 Assuming it is valid, it will be available on the "Play Mission" menu.
