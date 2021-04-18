@@ -1,6 +1,6 @@
-global os, sys, importlib, time
+global os, sys, importlib, time, webbrowser
 try:
-    import os, sys, importlib, time
+    import os, sys, importlib, time, webbrowser
 except Exception as Exc:
     print("ERROR 001 ('README.txt')")
     input()
@@ -33,15 +33,15 @@ while True:
 1 | Play Mission
 2 | Help
 3 | Credits
+4 | More
 >""")
-    if Option in ["1","2","3"]:
+    if Option in ["1","2","3", "4"]:
         break
     print("Invalid.")
 if Option=="1":
     Options = []
     for (file) in os.listdir('Missions'):
         if ('.py' in file) and (file!="__init__.py"):
-            Mission = importlib.import_module(file.split(".py")[0])
             try:
                 Mission = importlib.import_module(file.split(".py")[0])
                 try:
@@ -51,8 +51,8 @@ if Option=="1":
                     input()
                     exit()
                 Options.append(Mission)
-            except Exception:
-                fatal("003")
+            except Exception as Except:
+                fatal("003 ({})".format(Except))
     if len(Options) == 0:
         print("You don't have any missions installed, view the Help menu or the README.txt file to learn how to install them.")
         input()
@@ -88,7 +88,13 @@ Description: {}
 """.format(ChosenMission.Name, ChosenMission.AuthorS, ChosenMission.Description))
     input("-- HIT RETURN TO RUN THE MISSION --")
     print("Good luck - ExplorationPy")
-    ChosenMission.Game(API)
+    try:
+        if ChosenMission.ExplorationPyFile == 1.1:
+            ChosenMission.Game(API)
+        else:
+            print("You are running V1.1, this mission is wrote for 'V{}'.".format(ChosenMission.ExplorationPyFile))
+    except Exception as Exc:
+        print("Failed to load mission and invoke Game. This is most likely due to a fault in the mission. ({})".format(Exc))
 if Option=="2":
     print("""
 > How to install a mission.
@@ -98,5 +104,20 @@ Assuming it is valid, it will be available on the "Play Mission" menu.
 if Option=="3":
     print("""
 > Credits
-N/A
+Alex
+Python.org
 """)
+
+if Option=="4":
+    Choice = API.menu(["API Reference", "Share/Download missions", "Issue A Bug Report", "Issue A Suggestion"])
+    if Choice == "API Reference":
+        webbrowser.open('https://github.com/alex-101/ExplorationPy/wiki',2)
+    elif Choice == "Share/Download missions":
+        webbrowser.open("https://github.com/alex-101/ExplorationPy/discussions/categories/missions",2)
+    elif Choice == "Issue A Bug Report":
+        webbrowser.open("https://github.com/alex-101/ExplorationPy/issues",2)
+    else:
+        webbrowser.open("https://github.com/alex-101/ExplorationPy/discussions/categories/suggestions",2)
+        
+input("HIT ENTER TO CLOSE")
+exit()
