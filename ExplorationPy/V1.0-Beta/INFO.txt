@@ -1,0 +1,13 @@
+This folder is for V1.0 of ExplorationPy.
+
+
+--[ Information ]--
+Created: 29 ‎March ‎2021
+Version: V1.0
+
+--[ Links ]--
+( MAIN PAGE )
+https://github.com/alex-101/ExplorationPy
+
+( V1.0 PAGE )
+https://github.com/alex-101/ExplorationPy/releases/tag/V1.0-Beta
